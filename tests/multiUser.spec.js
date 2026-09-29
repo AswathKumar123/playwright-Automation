@@ -1,4 +1,5 @@
 const { test, expect } = require("@playwright/test");
+const { getCertificateCompressionAlgorithms } = require("tls");
 
 
 test.describe('Playwright Financial Wellness test', () => {
@@ -8,24 +9,23 @@ test.describe('Playwright Financial Wellness test', () => {
         await expect(page).toHaveTitle('Harbor | Financial wellness');
 
              await test.step('Invalid Password Validation homepage', async() => {
-                        //await page.locator('#username').click();
-                        await page.locator('#password').fill('xxxx');
-                        await page.locator('.login-submit').click();
+                        await page.locator('#username').click();
+                        const users = await page.locator('#username option');
+                        const userCount = await users.count();
 
-                        const errorInline = page.locator('[role="alert"]');
+                        for (let i = 0; i < userCount && i < 5; i++) {
+                            await page.locator('#username').selectOption({ index: i });
+                            await page.locator('#password').fill('xxxx');
+                            await page.locator('.login-submit').click();
 
-                       const invalidMsg = await errorInline.textContent();
-
-                        await expect(errorInline).toBeVisible();
-
-                        await expect(errorInline).toHaveText(invalidMsg);
-
-                        await expect(invalidMsg).toMatch('Invalid demo username or password');
+                            const errorInline = page.locator('[role="alert"]');
+                            await expect(errorInline).toHaveText('Invalid demo username or password');
+                        }
         })
 
          await test.step('Login to homepage', async() => {
                         //await page.locator('#username').click();
-                        await page.locator('#password').fill('DemoPass!001');
+                        await page.locator('#password').fill('DemoPass!005');
                         await page.locator('.login-submit').click();
         })
 
@@ -68,6 +68,13 @@ test('Validate homepage', async ({page}) => {
       tabTitles.filter(value => {
         value.includes('OverviewOpen');
     })
+
+    const cashFlowFilter = page.locator('//*[@id="main"]/div[4]/section[1]/div[1]/label/select');
+    const cashFlowFilterCount = await cashFlowFilter.locator('option').count();
+
+    for (let index = 0; index < cashFlowFilterCount; index++) {
+        await cashFlowFilter.selectOption({ index });
+    }
 
 });
 
