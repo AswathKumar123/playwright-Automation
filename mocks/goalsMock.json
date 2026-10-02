@@ -1,0 +1,32 @@
+[
+    {
+        "id": "retirement",
+        "title": "Aswath_Retirement",
+        "category": "retirement",
+        "current": 182500,
+        "target": 5200000,
+        "monthlyContribution": 500,
+        "targetDate": "2027-10-01",
+        "icon": "sun"
+    },
+    {
+        "id": "emergency",
+        "title": "Aswath_Emergency fund",
+        "category": "savings",
+        "current": 14900,
+        "target": 202000,
+        "monthlyContribution": 451,
+        "targetDate": "2027-09-01",
+        "icon": "shield"
+    },
+    {
+        "id": "college",
+        "title": "Aswath_College savings",
+        "category": "education",
+        "current": 7220,
+        "target": 600600,
+        "monthlyContribution": 301,
+        "targetDate": "2042-08-01",
+        "icon": "book"
+    }
+]

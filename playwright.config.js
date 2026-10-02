@@ -23,7 +23,10 @@ const config = ({
   use: {
     browserName: 'chromium',
     headless: false,
-    trace: 'on-first-retry',
+    trace: 'retain-on-failure',
+    actionTimeout: 10 * 1000,
+    navigationTimeout: 30 * 100,
+    screenshot: 'on'
   },
 
   /* Configure projects for major browsers */

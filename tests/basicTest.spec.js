@@ -3,7 +3,7 @@ const { test, expect } = require("@playwright/test");
 
 test.describe('Playwright Financial Wellness test', () => {
     test.beforeEach('has the expected homepage title', async ({ page }) => {
-        await page.goto('http://localhost:5173/');
+        await page.goto("https://financial-wellness-lab-2.vercel.app/");
 
         await expect(page).toHaveTitle('Harbor | Financial wellness');
 
@@ -36,7 +36,7 @@ test.skip('First Playwright Test', async ({browser}) => {
     const context = await browser.newContext();
     const page = await context.newPage();
 
-    await page.goto('http://localhost:5173/');
+   await page.goto("https://financial-wellness-lab-2.vercel.app/");
 
     await expect(page).toHaveTitle('Harbor | Financial wellness');
 

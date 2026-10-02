@@ -1,0 +1,71 @@
+import { request, expect } from "@playwright/test";
+
+const loginPayload = {
+  username: "user001",
+  password: "DemoPass!001",
+};
+
+class commonUtil {
+  constructor() {
+    this.apiContext = null;
+    this.token = null;
+    this.authPromise = null;
+  }
+
+  async ensureAuthenticated() {
+    if (this.apiContext && this.token) return;
+
+    this.authPromise ??= (async () => {
+      this.apiContext = await request.newContext();
+
+      const loginResponse = await this.apiContext.post(
+        "https://financial-wellness-lab-2.onrender.com/api/auth/login",
+        { data: loginPayload },
+      );
+
+      expect(loginResponse.ok()).toBeTruthy();
+
+      const body = await loginResponse.json();
+      this.token = body.accessToken;
+    })();
+
+    await this.authPromise;
+  }
+
+  async postApiContext(api, payload) {
+     await this.ensureAuthenticated();
+    const response = await this.apiContext.post(api, {
+      data: payload,
+      headers: { Authorization: `Bearer ${this.token}` },
+    });
+
+    expect(response.ok()).toBeTruthy();
+    expect(response.status()).toBe(200);
+    return response;
+  }
+
+  async patchApiContext(api, payload) {
+     await this.ensureAuthenticated();
+    const response = await this.apiContext.patch(api, {
+      data: payload,
+      headers: { Authorization: `Bearer ${this.token}` },
+    });
+
+    expect(response.ok()).toBeTruthy();
+    expect(response.status()).toBe(200);
+    return response;
+  }
+
+  async getApiContext(api) {
+     await this.ensureAuthenticated();
+    const response = await this.apiContext.get(api, {
+      headers: { Authorization: `Bearer ${this.token}` },
+    });
+
+    expect(response.ok()).toBeTruthy();
+    expect(response.status()).toBe(200);
+    return response;
+  }
+}
+
+module.exports = commonUtil;
