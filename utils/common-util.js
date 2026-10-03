@@ -1,5 +1,8 @@
 import { request, expect } from "@playwright/test";
 
+const path = require("node:path");
+const ExcelJS = require("exceljs");
+
 const loginPayload = {
   username: "user001",
   password: "DemoPass!001",
@@ -33,7 +36,7 @@ class commonUtil {
   }
 
   async postApiContext(api, payload) {
-     await this.ensureAuthenticated();
+    await this.ensureAuthenticated();
     const response = await this.apiContext.post(api, {
       data: payload,
       headers: { Authorization: `Bearer ${this.token}` },
@@ -45,7 +48,7 @@ class commonUtil {
   }
 
   async patchApiContext(api, payload) {
-     await this.ensureAuthenticated();
+    await this.ensureAuthenticated();
     const response = await this.apiContext.patch(api, {
       data: payload,
       headers: { Authorization: `Bearer ${this.token}` },
@@ -57,7 +60,7 @@ class commonUtil {
   }
 
   async getApiContext(api) {
-     await this.ensureAuthenticated();
+    await this.ensureAuthenticated();
     const response = await this.apiContext.get(api, {
       headers: { Authorization: `Bearer ${this.token}` },
     });
@@ -65,6 +68,39 @@ class commonUtil {
     expect(response.ok()).toBeTruthy();
     expect(response.status()).toBe(200);
     return response;
+  }
+
+  async readExcel(
+    filePath = path.resolve(__dirname, "../excel/Harbor_Excel_Practice.xlsx"),
+  ) {
+    const workbook = new ExcelJS.Workbook();
+    await workbook.xlsx.readFile(filePath);
+    return workbook;
+  }
+
+  getExcel(worksheet, existingCellValue) {
+    expect(worksheet).toBeDefined();
+
+    let targetCell;
+    worksheet.eachRow((row) => {
+      row.eachCell((cell) => {
+        if (!targetCell && cell.value === existingCellValue) {
+          targetCell = cell;
+        }
+      });
+    });
+
+    if (!targetCell) {
+      throw new Error(
+        `Could not find a cell containing "${existingCellValue}"`,
+      );
+    }
+
+    return targetCell;
+  }
+
+  async writeExcel(workbook, outputFilePath) {
+    await workbook.xlsx.writeFile(outputFilePath);
   }
 }
 
