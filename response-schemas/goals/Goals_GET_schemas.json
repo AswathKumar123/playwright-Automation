@@ -1,0 +1,42 @@
+{
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "title": {
+        "type": "string"
+      },
+      "category": {
+        "type": "string"
+      },
+      "current": {
+        "type": "integer"
+      },
+      "target": {
+        "type": "integer"
+      },
+      "monthlyContribution": {
+        "type": "integer"
+      },
+      "targetDate": {
+        "type": "string"
+      },
+      "icon": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "id",
+      "title",
+      "category",
+      "current",
+      "target",
+      "monthlyContribution",
+      "targetDate",
+      "icon"
+    ]
+  }
+}
