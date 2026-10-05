@@ -2,6 +2,8 @@ import { test, request, expect } from "@playwright/test";
 
 import commonUtil from "../utils/common-util";
 
+import { validator, validateSchema } from "../utils/schema-validator";
+
 const loginPayload = {
   username: "user001",
   password: "DemoPass!001",
@@ -91,10 +93,20 @@ test.describe("Api Tests for Financial Wellness", async () => {
     console.log(JSON.stringify(response.json()));
   });
 
+  test.only("Test only the Goals Get APi", async() => {
+    const response = await commonUtils.getApiContext('https://financial-wellness-lab-2.onrender.com/api/goals');
+    await validator(await response.json(), "goals", "GET_goals");
+    await validateSchema(await response.json(), "goals", 'Goals_GET');
+    expect(response.ok()).toBeTruthy();
+    expect(response.status()).toBe(200);
+  })
+
   test("Test Goals Get Api", async () => {
   
 
-    await commonUtils.getApiContext('https://financial-wellness-lab-2.onrender.com/api/recommendations?priority=all');
+    const response = await commonUtils.getApiContext('https://financial-wellness-lab-2.onrender.com/api/recommendations?priority=all');
+    expect(response.ok()).toBeTruthy();
+    expect(response.status()).toBe(200);
 
   });
 
