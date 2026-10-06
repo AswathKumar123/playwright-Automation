@@ -1,8 +1,9 @@
 const base = require("@playwright/test");
 import commonUtil from "../utils/common-util";
+import { RequestHandler } from "./requestHandler";
 
 const commonUtils = new commonUtil();
-
+const requestHandlers = new RequestHandler();
 const retirementPayload = {
   monthlyContribution: 500,
   targetDate: "2027-10-01",
@@ -29,4 +30,9 @@ exports.customTest = base.test.extend({
     );
     await use(await response.json());
   },
+  api: async ({}, use) => {
+    await use(requestHandlers);
+  }
+
+
 });

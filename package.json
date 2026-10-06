@@ -15,9 +15,13 @@
     "@types/pg": "^8.23.1"
   },
   "dependencies": {
+
     "@axe-core/playwright": "^4.13.0",
     "dotenv": "^18.0.6",
     "exceljs": "^4.4.0",
-    "pg": "^8.23.1"
+    "pg": "^8.23.1",
+    "ajv": "^8.20.0",
+    "ajv-formats": "^3.0.1",
+    "genson-js": "^0.0.8"
   }
 }
