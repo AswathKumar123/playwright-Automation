@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "run:test": "npx playwright test"
+    "run:test": "npx playwright test",
+    "k6:run": "k6 run"
   },
   "keywords": [],
   "author": "",
@@ -15,13 +16,13 @@
     "@types/pg": "^8.23.1"
   },
   "dependencies": {
-
     "@axe-core/playwright": "^4.13.0",
-    "dotenv": "^18.0.6",
-    "exceljs": "^4.4.0",
-    "pg": "^8.23.1",
+    "@types/k6": "^2.3.0",
     "ajv": "^8.20.0",
     "ajv-formats": "^3.0.1",
-    "genson-js": "^0.0.8"
+    "dotenv": "^18.0.6",
+    "exceljs": "^4.4.0",
+    "genson-js": "^0.0.8",
+    "pg": "^8.23.1"
   }
 }
