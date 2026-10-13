@@ -4,23 +4,31 @@ import commonUtil from "../utils/common-util";
 
 import goalsMock from "../mocks/goalsMock.json"
 
+import LoginPage from "../pages/login-page";
+
+import GoalsPage from "../pages/goals-page";
+
 let helper = new commonUtil();
 
-test.describe("Verify the UI and APi", async () => {
+
+
+test.describe("Verify the UI and APi", () => {
+  test.describe.configure({ mode: "parallel" });
   test.beforeEach("Login to app", async ({ page }) => {
-    await page.goto("https://financial-wellness-lab-2.vercel.app/");
+    const loginpage = new LoginPage(page);
+    await loginpage.goToLoginPage();
 
     await test.step("Login to homepage", async () => {
+      const loginpage = new LoginPage(page);
+    
       //await page.locator('#username').click();
-      await page.locator("#password").fill("DemoPass!001");
-      await page.locator(".login-submit").click();
+      await loginpage.validLogin("DemoPass!001");
     });
   });
 
-  test("Validate api value with UI", async ({ page }) => {
-    const goalCardHeader = await page
-      .locator(".goal-card h3")
-      .allTextContents(); 
+  test(`Validate api value with UI @api`, async ({ page }) => {
+    const goalsPage = new GoalsPage(page);
+    const goalCardHeader = await goalsPage.getLocatorTextContents(goalsPage.goalCardHeader);
 
     const labels = await helper.getApiContext(
       "https://financial-wellness-lab-2.onrender.com/api/goals",
@@ -51,7 +59,7 @@ test.describe("Verify the UI and APi", async () => {
   });
 
 
-  test('Intercept Network apis', async({page}) => {
+  test(`Intercept Network apis @intercept`, async({page}) => {
     await page.route('https://financial-wellness-lab-2.onrender.com/api/goals', route => {
         route.fulfill({
             status:200,
