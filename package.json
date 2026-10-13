@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "run:test": "npx playwright test",
-    "k6:run": "k6 run"
+    "k6:run": "k6 run",
+    "chrome:test": "npx playwright test --project='chrome'",
+    "ios_mobile:test":  "npx playwright test --project='ios_mobile'",
+    "android_mobile:test":  "npx playwright test --project='chrome_mobile'"
   },
   "keywords": [],
   "author": "",
