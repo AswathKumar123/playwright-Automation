@@ -13,7 +13,7 @@ const config = {
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 1,
   /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : 3,
+  workers: process.env.CI ? 10 : 3,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: "html",
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
@@ -24,20 +24,20 @@ const config = {
       name: "chrome",
       use: {
         browserName: "chromium",
-        headless: false,
+        headless: process.env.CI ? true : false,
         trace: "retain-on-failure",
         ignoreHttpsErrors: true,
         actionTimeout: 10 * 1000,
         navigationTimeout: 30 * 1000,
         screenshot: "on",
-        video: "retain-on-failure"
+        video: "retain-on-failure",
       },
     },
     {
       name: "Safari",
       use: {
         browserName: "webkit",
-        headless: false,
+        headless: process.env.CI ? true : false,
         trace: "retain-on-failure",
         ignoreHttpsErrors: true,
         actionTimeout: 10 * 1000,
@@ -49,7 +49,7 @@ const config = {
       name: "chrome_mobile",
       use: {
         browserName: "chromium",
-        headless: false,
+        headless: process.env.CI ? true : false,
         trace: "retain-on-failure",
         ignoreHttpsErrors: true,
         actionTimeout: 10 * 1000,
@@ -62,7 +62,7 @@ const config = {
       name: "ios_mobile",
       use: {
         browserName: "webkit",
-        headless: false,
+        headless: process.env.CI ? true : false,
         trace: "retain-on-failure",
         ignoreHttpsErrors: true,
         actionTimeout: 10 * 1000,

@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        PATH+NODE = "${env.HOME}/.nvm/versions/node/v20.12.0/bin"
+        PATH = "${env.HOME}/.nvm/versions/node/v20.12.0/bin:${env.PATH}"
     }
 
     parameters {

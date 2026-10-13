@@ -93,7 +93,7 @@ test.describe("Api Tests for Financial Wellness", async () => {
     console.log(JSON.stringify(response.json()));
   });
 
-  test.only("Test only the Goals Get APi", async() => {
+  test("Test the Goals Get API", async() => {
     const response = await commonUtils.getApiContext('https://financial-wellness-lab-2.onrender.com/api/goals');
     await validator(await response.json(), "goals", "GET_goals");
     await validateSchema(await response.json(), "goals", 'Goals_GET');

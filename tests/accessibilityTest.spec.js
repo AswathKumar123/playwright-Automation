@@ -95,7 +95,7 @@ test('Disable Specific wcag A11y scan', async({page}) => {
   }
 })
 
-test.only("Attach the report", async({page}, testInfo) => {
+test("Attach the report", async({page}, testInfo) => {
      const results = await new AxeBuilder({page}).analyze();
     await testInfo.attach('AccessbilityReport.json', {
         body: JSON.stringify(results),

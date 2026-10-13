@@ -40,7 +40,7 @@ test.describe("Playwright Financial Wellness test", () => {
     await expect(page).toHaveTitle("Harbor | Financial wellness");
   });
 
-  test.only("Validate homepage", async ({ page }) => {
+  test("Validate homepage", async ({ page }) => {
     await test.step("Validate Overview", async () => {
       const overViewHeader = page.getByRole("tab", { name: "Overview" });
 
