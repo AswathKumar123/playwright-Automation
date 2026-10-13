@@ -24,20 +24,20 @@ const config = {
       name: "chrome",
       use: {
         browserName: "chromium",
-        headless: false,
+        headless: process.env.CI ? true : false,
         trace: "retain-on-failure",
         ignoreHttpsErrors: true,
         actionTimeout: 10 * 1000,
         navigationTimeout: 30 * 1000,
         screenshot: "on",
-        video: "retain-on-failure"
+        video: "retain-on-failure",
       },
     },
     {
       name: "Safari",
       use: {
         browserName: "webkit",
-        headless: false,
+        headless: process.env.CI ? true : false,
         trace: "retain-on-failure",
         ignoreHttpsErrors: true,
         actionTimeout: 10 * 1000,
@@ -49,7 +49,7 @@ const config = {
       name: "chrome_mobile",
       use: {
         browserName: "chromium",
-        headless: false,
+        headless: process.env.CI ? true : false,
         trace: "retain-on-failure",
         ignoreHttpsErrors: true,
         actionTimeout: 10 * 1000,
@@ -62,7 +62,7 @@ const config = {
       name: "ios_mobile",
       use: {
         browserName: "webkit",
-        headless: false,
+        headless: process.env.CI ? true : false,
         trace: "retain-on-failure",
         ignoreHttpsErrors: true,
         actionTimeout: 10 * 1000,
